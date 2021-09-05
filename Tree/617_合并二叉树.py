@@ -27,7 +27,7 @@
 解题思路:
 先序遍历，两棵树同步遍历
 '''
-s
+
 from Tree.TreeNode import TreeNode
 
 

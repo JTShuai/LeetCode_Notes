@@ -19,7 +19,7 @@
 9   6 3   1
 
 '''
-from 树.TreeNode import TreeNode
+from Tree.TreeNode import TreeNode
 
 '''
 解题思路：

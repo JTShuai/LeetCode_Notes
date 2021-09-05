@@ -48,7 +48,7 @@ e.g., 路径 [9, 4, 2, 5, 7, 8] 可以被看作以 2 为起点，
 5. 最后返回 d_node-1
 '''
 
-from 树.TreeNode import TreeNode
+from Tree.TreeNode import TreeNode
 
 class Solution:
     def diameterOfBinaryTree(self, root: TreeNode) -> int:

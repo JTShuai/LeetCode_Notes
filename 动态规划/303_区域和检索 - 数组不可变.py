@@ -21,6 +21,23 @@ class NumArray:
             cur += self.nums[i]
         return cur
 
-    '''
-    改进：利用前缀和, 这样调用sumRange时，可以 O(1)
-    '''
+
+'''
+改进：利用前缀和, 这样调用sumRange时，可以 O(1)
+'''
+class NumArray2:
+
+    def __init__(self, nums: List[int]):
+        self.prefixNums = self.prefix(nums)
+
+    def sumRange(self, left: int, right: int) -> int:
+        if left > 0:
+            return self.prefixNums[right] - self.prefixNums[left - 1]
+        else:
+            return self.prefixNums[right]
+
+    def prefix(self,nums: List[int]):
+
+        for i in range(1,len(nums)):
+            nums[i] = nums[i-1] + nums[i]
+        return nums

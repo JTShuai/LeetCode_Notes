@@ -98,7 +98,52 @@ class Solution:
 
         return dp[n-1][k]
 
+    def canPartition2(self, nums: List[int]) -> bool:
+        # 优化：压缩为一维数组
+        n = len(nums)
+        if n == 1:
+            return False
+
+        list_sum = sum(nums)
+        if list_sum % 2 != 0:
+            return False
+
+        target = list_sum//2
+        dp = [False]*(target+1)
+        dp[0] = True
+
+        if nums[0] <= target:
+            # 因为当 target 从小到大遍历时，
+            # 一定会碰到等于nums[0]的数字，此时dp一定为true，因为一定能找到一个数等于target
+            dp[nums[0]] = True
+
+        '''
+        j 的每次循环其实是查看当前nums[i]能不能和之前的数字凑成 和为 j
+        而配合上外圈的 i 的循环，就可以依次从数组的左边到右边累计数字看能不能凑出 和 为 target 的情况
+        
+        倒序：
+        每次查找其实是搜索左边的值，如果正序先更新了，那么轮到target的时候，相当于在二维数组中左边同一行的值就会影响到当前行
+        而且我们在二维数组中注意到，当出现一个 true后，数组同一列，其下面的所有行都为true，
+        在倒序的时候，就可以先把 diff 对应列在本行的值先不考虑，而是考虑上一行在这一列的值，最后在用当前行去更新，
+        因为一旦上一行在这一列是true，那当前行这一列必然是true,如果过上一行是false,而这一行是true，则只能记录作为下一行的参考，
+        不能作为本行更新 j 的参考。
+        '''
+        for i in range(1, n):
+            # 只有 target >= nums[i] 时，才会进入
+            for j in range(target, nums[i]-1, -1):
+                if dp[target]:
+                    return True
+                # 实际上是用的 i - 1 层 dp[j] 和 dp[j - nums[i]] 得出的
+                dp[j] |= dp[j - nums[i]]
+
+        return dp[target]
+
+
+
+
+
+
 if __name__ == '__main__':
     nums = [2,2,1,1]
     sol = Solution()
-    sol.canPartition(nums)
+    print(sol.canPartition2(nums))

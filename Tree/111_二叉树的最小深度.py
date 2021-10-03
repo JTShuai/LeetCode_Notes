@@ -30,14 +30,12 @@ class Solution:
             if not root.left and not root.right:
                 self.min_depth = min(self.min_depth, depth+1)
 
-
             depth += 1
 
             dfs(root.left, depth)
             dfs(root.right, depth)
 
             depth -= 1
-
 
         dfs(root, 0)
         return self.min_depth

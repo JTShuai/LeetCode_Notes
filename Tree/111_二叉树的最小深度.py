@@ -36,6 +36,8 @@ class Solution:
             dfs(root.left, depth)
             dfs(root.right, depth)
 
+            depth -= 1
+
 
         dfs(root, 0)
         return self.min_depth

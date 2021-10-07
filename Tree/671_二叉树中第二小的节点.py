@@ -39,8 +39,12 @@ class Solution:
             left = dfs(root.left)
             right = dfs(root.right)
             if left == -1 or right == -1:
+                # 因为子节点数要么为0，要么为2，这种情况说明当前节点是叶子节点。
+                # return max(left,right) 其实为 return -1
                 return max(left, right)
             else:
+                # 说明当前节点有子节点（子树），则返回两个大值中较小的那个
+                # 如果不存在 root.val > self.min，则一定会有 -1
                 return min(left, right)
 
         return dfs(root)
